@@ -1,3 +1,5 @@
+(require 'highlight-current-line)
+
 ;; ergoemacs tips
 ;; http://ergoemacs.org/emacs/emacs_make_modern.html
 (transient-mark-mode 1)   ;< highlight text selections
