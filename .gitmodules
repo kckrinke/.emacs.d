@@ -1,0 +1,18 @@
+[submodule "evil"]
+	path = evil
+	url = https://github.com/emacs-evil/evil.git
+[submodule "web-mode"]
+	path = web-mode
+	url = https://github.com/fxbois/web-mode.git
+[submodule "company-mode"]
+	path = company-mode
+	url = https://github.com/company-mode/company-mode.git
+[submodule "helm"]
+	path = helm
+	url = https://github.com/emacs-helm/helm.git
+[submodule "async"]
+	path = async
+	url = https://github.com/jwiegley/emacs-async.git
+[submodule "go-mode"]
+	path = go-mode
+	url = https://github.com/dominikh/go-mode.el.git
