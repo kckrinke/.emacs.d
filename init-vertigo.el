@@ -1,0 +1,5 @@
+(add-to-list 'load-path "~/.emacs.d/dash/")
+(add-to-list 'load-path "~/.emacs.d/vertigo/")
+(require 'vertigo)
+(global-set-key (kbd "M-j") 'vertigo-visual-jump-down)
+(global-set-key (kbd "M-k") 'vertigo-visual-jump-up)
