@@ -1,0 +1,10 @@
+#!/bin/bash
+export KEMACS_SERVER_START=0
+emacsclient -n $* 2> /dev/null
+rv=$?
+if [ $rv -ne 0 ]
+then
+    export KEMACS_SERVER_START=1
+    exec screen -S kemacs-session -T "xterm-color" -U -D -R emacs -nw $*
+fi
+exit $rv

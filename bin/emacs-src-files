@@ -1,0 +1,129 @@
+#!/bin/bash
+SCRIPT_NAME=$(basename "$0")
+EMACS_BIN=$(echo "${SCRIPT_NAME}" | perl -pe 's!^([-_\w]+?)\-src-files$!$1!;')
+
+DEFAULT_FILE_TYPES=c,h,cpp,hh,cs,ac,am,java,js,pl,py,pm,sh,xml,php,css,lisp,rst,go
+SET_FILE_TYPES=
+ADD_FILE_TYPES=
+DEL_FILE_TYPES=
+TARGET_PATHS=
+
+function display_usage {
+    echo "usage: $(basename $0) [options] <path> [path [...]]"
+    echo
+    echo "options:"
+    echo "  -h|--help           This screen"
+    echo "  -t|--type <types>   Comma-separated list of file extensions"
+    echo "  -a|--add <types>    Defaults, including <types>"
+    echo "  -d|--del <types>    Defaults, without <types>"
+    echo "  -n|--no-defaults    Ignore defaults, use only command arguments"
+    echo "  -N|--nothing        Do nothing, echo what would have been executed"
+    echo "  -e|--emacs <cmd>    Override emacs command: \"${EMACS_BIN}\""
+    echo
+    echo "Default types:  ${DEFAULT_FILE_TYPES}"
+    exit 1
+}
+
+if [ $# -lt 1 ]
+then
+    display_usage
+fi
+
+DO_NOTHING=0
+NO_DEFAULTS=0
+while [ $# -gt 0 ]
+do
+    THIS_ARG=$1
+    NEXT_ARG=$2
+    case "${THIS_ARG}" in
+        "-h"|"--help")
+            display_usage
+            ;;
+        "-t"|"--types")
+            if [ -z "${NEXT_ARG}" ]
+            then
+                echo "ERROR: The --types argument requires a comma-separated list of file extensions."
+                display_usage
+            fi
+            SET_FILE_TYPES="${NEXT_ARG}"
+            shift
+            ;;
+        "-a"|"--add")
+            if [ -z "${NEXT_ARG}" ]
+            then
+                echo "ERROR: The --add argument requires a comma-separated list of file extensions."
+                display_usage
+            fi
+            [ -n "${ADD_FILE_TYPES}"] && ADD_FILE_TYPES="${ADD_FILE_TYPES},"
+            ADD_FILE_TYPES="${ADD_FILE_TYPES}${NEXT_ARG}"
+            shift
+            ;;
+        "-d"|"--del")
+            if [ -z "${NEXT_ARG}" ]
+            then
+                echo "ERROR: The --del argument requires a comma-separated list of file extensions."
+                display_usage
+            fi
+            [ -n "${ADD_FILE_TYPES}"] && ADD_FILE_TYPES="${ADD_FILE_TYPES},"
+            ADD_FILE_TYPES="${ADD_FILE_TYPES}${NEXT_ARG}"
+            shift
+            ;;
+        "-n"|"--no-defaults")
+            NO_DEFAULTS=1
+            ;;
+        "-e"|"--emacs")
+            if [ -z "${NEXT_ARG}" ]
+            then
+                echo "ERROR: The --emacs argument requires the path to an emacs binary. Defaults to: \"${EMACS_BIN}\""
+                display_usage
+            fi
+            EMACS_BIN="$2"
+            ;;
+        "-N"|"--nothing")
+            DO_NOTHING=1
+            ;;
+        *)
+            if [ -d "$1" -o -f "$1" ]
+            then
+                TARGET_PATHS="${TARGET_PATHS} $1"
+            else
+                echo "ERROR: Unknown argument \"$1\""
+                display_usage
+            fi
+            ;;
+    esac
+    shift
+done
+
+
+DEL_ARGS=$(echo "${DEL_FILE_TYPES}" | perl -pe 's!,+!,!g;s!,!\n!g')
+ADD_ARGS=$(echo "${ADD_FILE_TYPES}" | perl -pe 's!,+!,!g;s!,!\n!g')
+if [ $NO_DEFAULTS -eq 1 ]
+then
+    SET_FILE_TYPES="${SET_FILE_TYPES},${ADD_ARGS}"
+else
+    SET_FILE_TYPES="${DEFAULT_FILE_TYPES},${SET_FILE_TYPES},${ADD_ARGS}"
+fi
+
+MERGE=`echo "${SET_FILE_TYPES}" | perl -pe 's!,+!,!g;s!,!\n!g;'`
+for arg in ${DEL_ARGS}
+do
+    MERGE=`echo "${MERGE}" | egrep -v "${darg}" | sort -u`
+done
+
+GIVEN_FILE_TYPES=""
+for merge in ${MERGE}
+do
+    [ -n "${GIVEN_FILE_TYPES}" ] && GIVEN_FILE_TYPES="${GIVEN_FILE_TYPES},"
+    GIVEN_FILE_TYPES="${GIVEN_FILE_TYPES}${merge}"
+done
+
+NAME_PATTERN=$(echo "${GIVEN_FILE_TYPES}" | perl -pe ' $s=$_; $s=~s/\r??\n//g; @f=split(m/,/,$s); $_ = ".*\\.\\(" . join("\\|",@f) . "\\)";')
+
+
+OP=exec
+if [ $DO_NOTHING -eq 1 ]
+then
+    OP=echo
+fi
+${OP} "${EMACS_BIN}" $(find ${TARGET_PATHS} -type f -iregex "${NAME_PATTERN}" | sort -u -r -V)
