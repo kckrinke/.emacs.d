@@ -22,6 +22,42 @@
 
 (global-set-key (kbd "M-v") 'evil-paste-after)
 
+(custom-set-variables
+ '(evil-intercept-maps nil)
+ '(evil-overriding-maps nil)
+)
+
+;;; buffers?
+
+(setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes))
+
+;;; Dired tweaks
+
+(eval-after-load 'dired
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (evil-make-overriding-map dired-mode-map 'normal t)
+     (evil-define-key 'normal dired-mode-map
+       "h" 'evil-backward-char
+       "j" 'evil-next-line
+       "k" 'evil-previous-line
+       "l" 'evil-forward-char
+       "J" 'dired-goto-file       ; "j"
+       "K" 'dired-do-kill-lines   ; "k"
+              "r" 'dired-do-redisplay))) ; "l"
+
+(eval-after-load 'wdired
+  '(progn
+     (add-hook 'wdired-mode-hook 'evil-change-to-initial-state)
+     (defadvice wdired-change-to-dired-mode (after evil activate)
+              (evil-change-to-initial-state nil t))))
+
+;; undo tree visualizer
+
+(defadvice undo-tree-visualize (after evil activate)
+  "Initialize Evil in the visualization buffer."
+  (when evil-local-mode
+        (evil-initialize-state)))
 
 ;; Abort company-mode when exiting insert mode
 (defun abort-company-on-insert-state-exit ()
