@@ -29,28 +29,40 @@
 
 ;;; buffers?
 
-(setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes))
+;(setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes))
+;; (evil-set-initial-state 'bs-mode 'emacs)
+;; (evil-set-initial-state 'ibuffer-mode 'normal)
+;; (evil-set-initial-state 'bookmark-bmenu-mode 'normal)
+;; (evil-set-initial-state 'dired-mode 'emacs)
+;; (evil-set-initial-state 'sunrise-mode 'emacs)
+;; (add-to-list 'evil-emacs-state-modes 'dired-mode)
+;; (add-to-list 'evil-emacs-state-modes 'ibuffer-mode)
+;; (add-to-list 'evil-emacs-state-modes 'bs-mode)
+;; (add-to-list 'evil-emacs-state-modes 'sunrise-mode)
+;; (add-to-list 'evil-emacs-state-modes 'helm-buffers-list)
+;; (add-to-list 'evil-emacs-state-modes 'helm-mini)
+;; (add-to-list 'evil-emacs-state-modes 'buffer-menu)
 
 ;;; Dired tweaks
 
-(eval-after-load 'dired
-  '(progn
-     ;; use the standard Dired bindings as a base
-     (evil-make-overriding-map dired-mode-map 'normal t)
-     (evil-define-key 'normal dired-mode-map
-       "h" 'evil-backward-char
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "l" 'evil-forward-char
-       "J" 'dired-goto-file       ; "j"
-       "K" 'dired-do-kill-lines   ; "k"
-              "r" 'dired-do-redisplay))) ; "l"
+;; (eval-after-load 'dired
+;;   '(progn
+;;      ;; use the standard Dired bindings as a base
+;;      (evil-make-overriding-map dired-mode-map 'normal t)
+;;      (evil-define-key 'normal dired-mode-map
+;;        "h" 'evil-backward-char
+;;        "j" 'evil-next-line
+;;        "k" 'evil-previous-line
+;;        "l" 'evil-forward-char
+;;        "J" 'dired-goto-file       ; "j"
+;;        "K" 'dired-do-kill-lines   ; "k"
+;;        "r" 'dired-do-redisplay))) ; "l"
 
-(eval-after-load 'wdired
-  '(progn
-     (add-hook 'wdired-mode-hook 'evil-change-to-initial-state)
-     (defadvice wdired-change-to-dired-mode (after evil activate)
-              (evil-change-to-initial-state nil t))))
+;; (eval-after-load 'wdired
+;;   '(progn
+;;      (add-hook 'wdired-mode-hook 'evil-change-to-initial-state)
+;;      (defadvice wdired-change-to-dired-mode (after evil activate)
+;;               (evil-change-to-initial-state nil t))))
 
 ;; undo tree visualizer
 
@@ -113,14 +125,14 @@
   (lambda () (interactive)(cl-loop repeat 10 do (evil-previous-visual-line))))
 (define-key evil-normal-state-map (kbd "M-L")
   (lambda () (interactive)(cl-loop repeat 10 do (forward-char))))
-(define-key evil-normal-state-map (kbd "H")
-  (lambda () (interactive)(cl-loop repeat 10 do (backward-char))))
-(define-key evil-normal-state-map (kbd "J")
-  (lambda () (interactive)(cl-loop repeat 10 do (evil-next-visual-line))))
-(define-key evil-normal-state-map (kbd "K")
-  (lambda () (interactive)(cl-loop repeat 10 do (evil-previous-visual-line))))
-(define-key evil-normal-state-map (kbd "L")
-  (lambda () (interactive)(cl-loop repeat 10 do (forward-char))))
+;; (define-key evil-normal-state-map (kbd "H")
+;;   (lambda () (interactive)(cl-loop repeat 10 do (backward-char))))
+;; (define-key evil-normal-state-map (kbd "J")
+;;   (lambda () (interactive)(cl-loop repeat 10 do (evil-next-visual-line))))
+;; (define-key evil-normal-state-map (kbd "K")
+;;   (lambda () (interactive)(cl-loop repeat 10 do (evil-previous-visual-line))))
+;; (define-key evil-normal-state-map (kbd "L")
+;;   (lambda () (interactive)(cl-loop repeat 10 do (forward-char))))
 
 
 (provide 'evil-settings)
