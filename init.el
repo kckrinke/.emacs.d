@@ -31,7 +31,8 @@
 (load "~/.emacs.d/init-macro.el")
 (load "~/.emacs.d/init-helm.el")
 (load "~/.emacs.d/init-go.el")
-;(load "~/.emacs.d/init-vertigo.el")
+;; (load "~/.emacs.d/init-vertigo.el")
+(load "~/.emacs.d/init-nyan.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

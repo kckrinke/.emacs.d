@@ -16,3 +16,6 @@
 [submodule "go-mode"]
 	path = go-mode
 	url = https://github.com/dominikh/go-mode.el.git
+[submodule "nyan-mode"]
+	path = nyan-mode
+	url = https://github.com/TeMPOraL/nyan-mode
