@@ -7,6 +7,7 @@ SET_FILE_TYPES=
 ADD_FILE_TYPES=
 DEL_FILE_TYPES=
 TARGET_PATHS=
+IGNORE_PATTERN=
 
 function display_usage {
     echo "usage: $(basename $0) [options] <path> [path [...]]"
@@ -16,6 +17,7 @@ function display_usage {
     echo "  -t|--type <types>   Comma-separated list of file extensions"
     echo "  -a|--add <types>    Defaults, including <types>"
     echo "  -d|--del <types>    Defaults, without <types>"
+    echo "  -i|--ignore <regex> Ignore paths matching given regex (egrep)"
     echo "  -n|--no-defaults    Ignore defaults, use only command arguments"
     echo "  -N|--nothing        Do nothing, echo what would have been executed"
     echo "  -e|--emacs <cmd>    Override emacs command: \"${EMACS_BIN}\""
@@ -77,10 +79,20 @@ do
                 echo "ERROR: The --emacs argument requires the path to an emacs binary. Defaults to: \"${EMACS_BIN}\""
                 display_usage
             fi
-            EMACS_BIN="$2"
+            EMACS_BIN="${NEXT_ARG}"
+            shift
             ;;
         "-N"|"--nothing")
             DO_NOTHING=1
+            ;;
+        "-i"|"--ignore")
+            if [ -z "${NEXT_ARG}" ]
+            then
+                echo "ERROR: The --ignore argument requires a regex pattern to match."
+                display_usage
+            fi
+            IGNORE_PATTERN="${NEXT_ARG}"
+            shift
             ;;
         *)
             if [ -d "$1" -o -f "$1" ]
@@ -126,4 +138,10 @@ if [ $DO_NOTHING -eq 1 ]
 then
     OP=echo
 fi
-${OP} "${EMACS_BIN}" $(find ${TARGET_PATHS} -type f -iregex "${NAME_PATTERN}" | sort -u -r -V)
+
+if [ -z "${IGNORE_PATTERN}" ]
+then
+    ${OP} "${EMACS_BIN}" $(find ${TARGET_PATHS} -type f -iregex "${NAME_PATTERN}" | sort -u -r -V)
+else
+    ${OP} "${EMACS_BIN}" $(find ${TARGET_PATHS} -type f -iregex "${NAME_PATTERN}" | sort -u -r -V | egrep -v "${IGNORE_PATTERN}" )
+fi
