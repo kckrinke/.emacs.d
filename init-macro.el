@@ -39,6 +39,7 @@
 (global-set-key "\C-cdmo"  'kck-diff-merge-ours)
 (global-set-key "\C-cbm"   'sh-mode)
 (global-set-key "\C-ccpm"  'cperl-mode)
+(global-set-key "\C-cwm"   'web-mode)
 (global-set-key "\C-cg"    'goto-line)
 (global-set-key "\C-c\C-g" 'goto-line)
 ;;(global-set-key "\C-csw"   'ispell-word)

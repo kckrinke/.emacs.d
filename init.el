@@ -56,6 +56,8 @@
  '(c-syntactic-indentation t)
  '(clean-aindent-is-simple-indent nil)
  '(clean-aindent-mode t)
+ '(cperl-electric-backspace-untabify nil)
+ '(cperl-hairy nil)
  '(custom-buffer-indent 2)
  '(ecb-tree-indent 0)
  '(evil-intercept-maps nil)
