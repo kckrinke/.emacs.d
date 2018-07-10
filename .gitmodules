@@ -19,3 +19,6 @@
 [submodule "nyan-mode"]
 	path = nyan-mode
 	url = https://github.com/TeMPOraL/nyan-mode
+[submodule "evil-escape"]
+	path = evil-escape
+	url = https://github.com/syl20bnr/evil-escape.git

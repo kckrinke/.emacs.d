@@ -136,3 +136,12 @@
 
 
 (provide 'evil-settings)
+
+;; evil-escape
+(add-to-list 'load-path "~/.emacs.d/evil-escape")
+(require 'evil-escape)
+(evil-escape-mode 1)
+(setq-default evil-escape-key-sequence "jk")
+(setq-default evil-escape-delay 0.2)
+(global-set-key "\C-cqq" 'evil-escape)
+

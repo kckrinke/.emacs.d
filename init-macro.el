@@ -12,14 +12,27 @@
 (fset 'kck-shell-date             "\C-u\C-[!date +\"%a %b %d %Y\"\C-m")
 (fset 'kck-shell-date-full        "\C-u\C-[!date +\"%A, %B %d, %Y\"\C-m")
 (fset 'kck-shell-date-changes     "\C-u\C-[!date +\"%a, %d %b %Y %H:%M:%S %z\"\C-m")
-(fset 'kck-diff-merge-theirs
-      (lambda (&optional arg) "Keyboard macro." (interactive "p")
-	(kmacro-exec-ring-item
-	 (quote ("^S<<<<<<< ^A^@^S=======^F^Cdr^S>>>>>>>^A^K^K" 0 "%d")) arg)))
+(defun toggle-evilmode ()
+  (interactive)
+  (if (bound-and-true-p evil-local-mode)
+      (progn
+        (evil-local-mode (or -1 1))
+        (undo-tree-mode (or -1 1))
+        (set-variable 'cursor-type 'bar)
+        )
+    (progn
+      (evil-local-mode (or 1 1))
+      (set-variable 'cursor-type 'box)
+      )
+    )
+  )
+(global-set-key (kbd "M-u") 'toggle-evilmode)
+
 (fset 'kck-diff-merge-ours
-      (lambda (&optional arg) "Keyboard macro." (interactive "p")
-	(kmacro-exec-ring-item
-	 (quote ("^S=======^A^@^S>>>^E^F^Cdr^R<<<<<<<^A^K^K" 0 "%d")) arg)))
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("/<<<<<<<dd/=======v/>>>>>>>$d" 0 "%d")) arg)))
+(fset 'kck-diff-merge-theirs
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("/<<<<<<<v/=======$d/>>>>>>>dd" 0 "%d")) arg)))
+
 
 ;; Custom Keybinds
 (global-set-key "\C-cdmt"  'kck-diff-merge-theirs)
