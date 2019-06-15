@@ -22,3 +22,6 @@
 [submodule "evil-escape"]
 	path = evil-escape
 	url = https://github.com/syl20bnr/evil-escape.git
+[submodule "org-mode"]
+	path = org-mode
+	url = https://code.orgmode.org/bzg/org-mode.git
