@@ -25,3 +25,6 @@
 [submodule "org-mode"]
 	path = org-mode
 	url = https://code.orgmode.org/bzg/org-mode.git
+[submodule "evil-org-mode"]
+	path = evil-org-mode
+	url = https://github.com/Somelauw/evil-org-mode.git
