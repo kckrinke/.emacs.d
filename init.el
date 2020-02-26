@@ -26,6 +26,7 @@
 (load "~/.emacs.d/init-company.el")
 (load "~/.emacs.d/init-cperl.el")
 (load "~/.emacs.d/init-web.el")
+(load "~/.emacs.d/init-apache.el")
 (load "~/.emacs.d/init-evil.el")
 (load "~/.emacs.d/init-ergo.el")
 (load "~/.emacs.d/init-macro.el")
