@@ -34,6 +34,7 @@
 (load "~/.emacs.d/init-go.el")
 ;; (load "~/.emacs.d/init-vertigo.el")
 (load "~/.emacs.d/init-nyan.el")
+(load "~/.emacs.d/init-org.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -57,9 +58,16 @@
  '(c-syntactic-indentation t)
  '(clean-aindent-is-simple-indent nil)
  '(clean-aindent-mode t)
+ '(color-theme-directory (quote ("~/.emacs.d/org-themes/")))
+ '(color-theme-legal-frame-parameters "\\(color\\|mode\\|font\\|height\\|width\\)$")
+ '(color-theme-libraries
+   (quote
+    ("/usr/share/emacs25/site-lisp/emacs-goodies-el/color-theme-library.el" "/usr/share/emacs25/site-lisp/emacs-goodies-el/color-theme-library.elc" "~/.emacs.d/org-themes/color-theme-tangotango.el")))
  '(cperl-electric-backspace-untabify nil)
- '(cperl-hairy nil)
+ '(cperl-hairy nil t)
  '(custom-buffer-indent 2)
+ '(custom-enabled-themes (quote (color-theme-tangotango)))
+ '(custom-theme-directory "~/.emacs.d/org-themes/")
  '(ecb-tree-indent 0)
  '(evil-intercept-maps nil)
  '(evil-overriding-maps nil)
@@ -67,6 +75,7 @@
  '(highlight-current-line-globally t nil (highlight-current-line))
  '(indent-tabs-mode nil)
  '(mail-indentation-spaces 3)
+ '(org-pretty-entities t)
  '(projectile-verbose nil)
  '(standard-indent 2)
  '(web-mode-enable-block-face t))
