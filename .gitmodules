@@ -28,3 +28,6 @@
 [submodule "evil-org-mode"]
 	path = evil-org-mode
 	url = https://github.com/Somelauw/evil-org-mode.git
+[submodule "markdown-mode"]
+	path = markdown-mode
+	url = https://github.com/jrblevin/markdown-mode.git

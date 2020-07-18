@@ -36,6 +36,7 @@
 ;; (load "~/.emacs.d/init-nyan.el")
 (load "~/.emacs.d/init-org.el")
 (load "~/.emacs.d/init-evil-org.el")
+(load "~/.emacs.d/init-markdown.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
