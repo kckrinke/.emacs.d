@@ -56,7 +56,7 @@
       (ibuffer-read-only-buffer-face . font-lock-type-face)
       (ibuffer-special-buffer-face . font-lock-keyword-face)
       (ibuffer-title-face . font-lock-type-face))
-     (highlight ((t (:background "brown4" :foreground nil))))
+     (highlight ((t (:background "tan" :foreground nil))))
      (border ((t (:background "#888a85"))))
      (fringe ((t (:background "grey10"))))
      (mode-line ((t (:foreground "#bbbbbc" :background "#222222" :box (:line-width 1 :color nil :style released-button)))))

@@ -64,11 +64,11 @@
  '(color-theme-legal-frame-parameters "\\(color\\|mode\\|font\\|height\\|width\\)$")
  '(color-theme-libraries
    (quote
-    ("/usr/share/emacs25/site-lisp/emacs-goodies-el/color-theme-library.el" "/usr/share/emacs25/site-lisp/emacs-goodies-el/color-theme-library.elc" "~/.emacs.d/org-themes/color-theme-tangotango.el")))
+    ("/usr/share/emacs25/site-lisp/emacs-goodies-el/color-theme-library.el" "/usr/share/emacs25/site-lisp/emacs-goodies-el/color-theme-library.elc")))
  '(cperl-electric-backspace-untabify nil)
  '(cperl-hairy nil t)
  '(custom-buffer-indent 2)
- '(custom-enabled-themes (quote (color-theme-tangotango)))
+ '(custom-enabled-themes (quote (tangotango)))
  '(custom-theme-directory "~/.emacs.d/org-themes/")
  '(ecb-tree-indent 0)
  '(evil-intercept-maps nil)
@@ -88,6 +88,11 @@
  ;; If there is more than one, they won't work right.
  '(fringe ((t (:background "#111"))))
  '(git-blame-prefix-face ((t (:foreground "red"))))
+ '(helm-lisp-show-completion ((t (:background "tan" :foreground "black"))))
+ '(helm-selection ((t (:background "#b5ffd1" :foreground "white"))))
+ '(helm-selection-line ((t (:inherit tan :distant-foreground "black"))))
+ '(helm-visible-mark ((t (:background "tan" :foreground "black"))))
+ '(highlight ((t (:background "tan" :foreground "black"))))
  '(highlight-current-line-face ((t (:background "black"))))
  '(semantic-decoration-on-fileless-includes ((t (:background "#f0fdf0"))))
  '(semantic-decoration-on-unknown-includes ((t (:weight light))))
