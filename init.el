@@ -11,15 +11,24 @@
 (require 'package)
 (package-initialize)
 
+;; store all backup and autosave files in ~/.emacs.d.saves
+(setq backup-directory-alist `(("." . "~/.emacs.d.saves")))
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      backup-by-copying t
+      create-lockfiles nil)
+
 ;; helper functions
 (defun modify-alist (alist-symbol key value &optional search-cdr)
   (let ((alist (symbol-value alist-symbol)))
     (while alist
       (if (eq (if search-cdr
-		  (cdr (car alist))
-		(car (car alist))) key)
-	  (setcdr (car alist) value)
-	(setq alist (cdr alist))))))
+                  (cdr (car alist))
+                (car (car alist))) key)
+          (setcdr (car alist) value)
+        (setq alist (cdr alist))))))
 
 ;; init rest of system
 (require 'yafolding)
@@ -43,6 +52,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
  '(c-backslash-column (quote set-from-style))
  '(c-backslash-max-column (quote set-from-style))
  '(c-block-comment-prefix (quote set-from-style))
@@ -68,7 +79,7 @@
  '(cperl-electric-backspace-untabify nil)
  '(cperl-hairy nil t)
  '(custom-buffer-indent 2)
- '(custom-enabled-themes (quote (tangotango)))
+ '(custom-enabled-themes (quote (tango-dark)))
  '(custom-theme-directory "~/.emacs.d/org-themes/")
  '(ecb-tree-indent 0)
  '(evil-intercept-maps nil)
@@ -81,29 +92,64 @@
  '(projectile-verbose nil)
  '(standard-indent 2)
  '(web-mode-enable-block-face t))
+
+(when (not window-system)
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(fringe ((t (:background "#111"))))
+   '(git-blame-prefix-face ((t (:foreground "red"))))
+   '(helm-lisp-show-completion ((t (:background "tan" :foreground "black"))))
+   '(helm-selection ((t (:background "#b5ffd1" :foreground "white"))))
+   '(helm-selection-line ((t (:inherit tan :distant-foreground "black"))))
+   '(helm-visible-mark ((t (:background "tan" :foreground "black"))))
+   '(highlight ((t (:background "tan" :foreground "black"))))
+   '(highlight-current-line-face ((t (:background "black"))))
+   '(semantic-decoration-on-fileless-includes ((t (:background "#f0fdf0"))))
+   '(semantic-decoration-on-unknown-includes ((t (:weight light))))
+   '(semantic-highlight-edits-face ((t (:background "gray90"))))
+   '(semantic-highlight-func-current-tag-face ((t (:inverse-video t :weight bold))))
+   '(web-mode-block-control-face ((t (:foreground "cyan" :weight normal))))
+   '(web-mode-block-delimiter-face ((t (:foreground "blue" :weight normal))))
+   '(web-mode-block-face ((t nil)))
+   '(web-mode-builtin-face ((t (:foreground "cyan" :weight normal))))
+   '(web-mode-html-attr-name-face ((t (:foreground "cyan"))))
+   '(web-mode-html-entity-face ((t (:foreground "green" :slant italic :weight bold))))
+   '(web-mode-html-tag-bracket-face ((t (:foreground "green"))))
+   '(web-mode-html-tag-face ((t (:foreground "green"))))
+   '(web-mode-string-face ((t (:foreground "red" :weight bold))))))
+(when (window-system)
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   ;'(fringe ((t (:background "#111"))))
+   '(git-blame-prefix-face ((t (:foreground "red"))))
+   '(helm-lisp-show-completion ((t (:background "tan" :foreground "black"))))
+   '(helm-selection ((t (:background "#b5ffd1" :foreground "white"))))
+   '(helm-selection-line ((t (:inherit tan :distant-foreground "black"))))
+   '(helm-visible-mark ((t (:background "tan" :foreground "black"))))
+   '(highlight ((t (:background "tan" :foreground "black"))))
+   '(highlight-current-line-face ((t (:background "black"))))
+   '(semantic-decoration-on-fileless-includes ((t (:background "#f0fdf0"))))
+   '(semantic-decoration-on-unknown-includes ((t (:weight light))))
+   '(semantic-highlight-edits-face ((t (:background "gray90"))))
+   '(semantic-highlight-func-current-tag-face ((t (:inverse-video t :weight bold))))
+   '(web-mode-block-control-face ((t (:foreground "cyan" :weight normal))))
+   '(web-mode-block-delimiter-face ((t (:foreground "blue" :weight normal))))
+   '(web-mode-block-face ((t nil)))
+   '(web-mode-builtin-face ((t (:foreground "cyan" :weight normal))))
+   '(web-mode-html-attr-name-face ((t (:foreground "cyan"))))
+   '(web-mode-html-entity-face ((t (:foreground "green" :slant italic :weight bold))))
+   '(web-mode-html-tag-bracket-face ((t (:foreground "green"))))
+   '(web-mode-html-tag-face ((t (:foreground "green"))))
+   '(web-mode-string-face ((t (:foreground "red" :weight bold))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(fringe ((t (:background "#111"))))
- '(git-blame-prefix-face ((t (:foreground "red"))))
- '(helm-lisp-show-completion ((t (:background "tan" :foreground "black"))))
- '(helm-selection ((t (:background "#b5ffd1" :foreground "white"))))
- '(helm-selection-line ((t (:inherit tan :distant-foreground "black"))))
- '(helm-visible-mark ((t (:background "tan" :foreground "black"))))
- '(highlight ((t (:background "tan" :foreground "black"))))
- '(highlight-current-line-face ((t (:background "black"))))
- '(semantic-decoration-on-fileless-includes ((t (:background "#f0fdf0"))))
- '(semantic-decoration-on-unknown-includes ((t (:weight light))))
- '(semantic-highlight-edits-face ((t (:background "gray90"))))
- '(semantic-highlight-func-current-tag-face ((t (:inverse-video t :weight bold))))
- '(web-mode-block-control-face ((t (:foreground "cyan" :weight normal))))
- '(web-mode-block-delimiter-face ((t (:foreground "blue" :weight normal))))
- '(web-mode-block-face ((t nil)))
- '(web-mode-builtin-face ((t (:foreground "cyan" :weight normal))))
- '(web-mode-html-attr-name-face ((t (:foreground "cyan"))))
- '(web-mode-html-entity-face ((t (:foreground "green" :slant italic :weight bold))))
- '(web-mode-html-tag-bracket-face ((t (:foreground "green"))))
- '(web-mode-html-tag-face ((t (:foreground "green"))))
- '(web-mode-string-face ((t (:foreground "red" :weight bold)))))
+ )

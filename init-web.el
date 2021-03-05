@@ -13,6 +13,9 @@
 (add-to-list 'auto-mode-alist '("\\.s?css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.xml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.info\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.module\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.inc\\'" . web-mode))
 ; web-mode settings
 (defun kck-web-mode-hook ()
   "Hooks for Web mode."
